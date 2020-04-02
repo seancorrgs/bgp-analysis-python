@@ -1,0 +1,14 @@
+Oshawa Oshawa 0
+Montreal Montreal 0
+Oshawa Ottawa 450
+Oshawa Montreal 600
+Ottawa Kingston 196
+Oshawa Whitby 9
+Oshawa Toronto 61
+Oshawa Kingston 205
+Kingston Montreal 499
+Ottawa Kingston 196
+Oshawa Whitby 9
+Oshawa Toronto 61
+Oshawa Kingston 206
+

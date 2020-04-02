@@ -23,6 +23,7 @@ def importdata():
         while True:
             line = file.readline()
             if line == "": break 
+            if "#" in line: continue
             elif line == "\n": continue
             line = line.replace("\n",("")); line = line.split(" ") ## Clean up the output and make list
             ## Now put data into our graph

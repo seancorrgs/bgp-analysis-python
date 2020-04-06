@@ -48,7 +48,7 @@ def returnpaths(city1, matrix): ## Return a dictionary of each path and weight f
         pathdict[matrix[0][i+1]] = cityweight[i]
     return pathdict
     ### Ref
-    # Provice city name and the matrix 
+    # Provice city name and the matrix
     # Paths will be returned as a DICT
 
 def changeedge():

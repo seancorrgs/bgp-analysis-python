@@ -21,11 +21,7 @@ def returnedgeweight(city1, city2, matrix): ## Return the edge weight of 2 citie
     return weight
 
 def displaymatrix(matrix): ## Print the matrix nicely for the debug screen
-    s = [[str(e) for e in row] for row in matrix]
-    lens = [max(map(len, col)) for col in zip(*s)]
-    fmt = '\t'.join('{{:{}}}'.format(x) for x in lens)
-    table = [fmt.format(*row) for row in s]
-    print('\n'.join(table))
+    print(matrix)
 
 def listcities(matrix): ## Return a list of the cities in the array
     citylist = []
@@ -34,24 +30,25 @@ def listcities(matrix): ## Return a list of the cities in the array
         citylist.append(matrix[0][i])
     return citylist
 
-def chooseandreturn(): ## condense the return cities repetitive code.
-    global matrix
-    ## Choose a city to view the edges on it
-    availpaths = returnpaths(availcities[choicecity1], matrix) # Get all paths for the chosen city
-    print("-- Current Paths --\n\n"); counter = 0; # , start counter
-    for k, v in availpaths.items(): # display all dictionary keys
-        print("{}. {} - {}km".format(counter,k,v)); counter += 1
-    try: # Ask for user to choose a path to modify
-        choice = int(input("Path to modify (hit enter to return):   "))
-    except ValueError: input("\n\n\nYou must enter a int value,\npress enter to return to main menu"); return
-    return 
+# def chooseandreturn(): ## condense the return cities repetitive code.
+#     global matrix
+#     ## Choose a city to view the edges on it
+#     availpaths = returnpaths(availcities[choicecity1], matrix) # Get all paths for the chosen city
+#     print("-- Current Paths --\n\n"); counter = 0; # , start counter
+#     for k, v in availpaths.items(): # display all dictionary keys
+#         print("{}. {} - {}km".format(counter,k,v)); counter += 1
+#     try: # Ask for user to choose a path to modify
+#         choice = int(input("Path to modify (hit enter to return):   "))
+#     except ValueError: input("\n\n\nYou must enter a int value,\npress enter to return to main menu"); return
+#     return 
 
 
 # def returnpaths(city1, matrix): ## return a list of the paths len available to a city
 #     loc = matrixcityloc(city1, matrix)
 #     return(matrix[loc])
 
-def returnpaths(city1, matrix): ## Return a dictionary of each path and weight from a point
+def returnpaths(city1): ## Return a dictionary of each path and weight from a point
+    global matrix
     loc = matrixcityloc(city1, matrix) # find the xy of city
     cityweight = matrix[loc] # pick the weights froms the matrix
     cityweight.pop(0) # RM name of the path
@@ -61,10 +58,10 @@ def returnpaths(city1, matrix): ## Return a dictionary of each path and weight f
         pathdict[matrix[0][i+1]] = cityweight[i]
     return pathdict
     ### Ref
-    # Provice city name and the matrix 
+    # Provice city name | Matrix must be global from requesting function
     # Paths will be returned as a DICT
 
-def changeedge():
+def changeedge():   ## Change a specific path in the graph
     global matrix # We want to edit matricies easier + error handeling
     availcities = listcities(matrix)
     print("-- Please choose starting node --")
@@ -77,7 +74,7 @@ def changeedge():
 
     ### WANT TO CONVERT THIS TO chooseandreturn function for simplicity. ###
     ## Choose a city to view the edges on it
-    availpaths = returnpaths(availcities[choicecity1], matrix) # Get all paths for the chosen city
+    availpaths = returnpaths(availcities[choicecity1]) # Get all paths for the chosen city
     print("-- Current Paths --\n\n"); counter = 0; # , start counter
     for k, v in availpaths.items(): # display all dictionary keys
         print("{}. {} - {}km".format(counter,k,v)); counter += 1
@@ -114,7 +111,7 @@ def deleteedge(): ## Pretty much 80% the same as edit edge
     except ValueError: print("You must enter a int value"); return
     
     ## Choose a city to view the edges on it
-    availpaths = returnpaths(availcities[choicecity1], matrix) # Get all paths for the chosen city
+    availpaths = returnpaths(availcities[choicecity1]) # Get all paths for the chosen city
     print("-- Current Paths --\n\n"); counter = 0; # , start counter
     for k, v in availpaths.items(): # display all dictionary keys
         print("{}. {} - {}km".format(counter,k,v)); counter += 1
@@ -135,20 +132,64 @@ def deleteedge(): ## Pretty much 80% the same as edit edge
     matrix[choicecity1 +1] = pushmatrix # push to main matrix
     ### ONLY CHANGES THE FROM MATRIX FOR THAT Path, as it could be directed.
 
+def deletenode(): ## Delete an entire node from the graph including all referances
+    global matrix
+    ## Loop through each 'row' in the matrix deleting a certain matrix index IF IT IS AVAILABLE
 
+def bellmanford(startingnode, startingindex): ## Called from shortest path function for simplicity
+    global matrix
+    pathsfornode = returnpaths(startingnode)    # This is the current direct paths we have
+    pathstocompute = listcities(matrix)         # This is all the destinations we need to get to
+
+    ## Bring the pathsfornode DICT up to speed on total not just computed paths
+    # for x, y in pathsfornode.items: # Change '--
+    #     if y == '------':
+    #         pathsfornode[x] = 0
+    ## Check if city is in dict / if not then set to ------
+    currentcities = [] ## INIT LIST
+    for x,y in pathsfornode.items():
+        currentcities.append(x)
+    input(currentcities)
+    for target in pathstocompute: # for each overall destination
+        if target in currentcities: continue
+        else:
+            pathsfornode[target] = '------'
+    ## Now we have a dict with current shortest paths (in order) and also ------ for paths with no route yet ##
+    # We need to recurvively find new routes using pathsfornodes #
+    counter = 0 
+    iterations = len(pathsfornode) - 1 # Max iteration, we will use this later
+    # while iterations <= 0: 
+    for dest, weight in pathsfornode.items(): # {'Oshawa': '------', 'Montreal': '------', 'Ottawa': '------', 'Kingston': '196', 'Whitby': '------', 'Toronto': '------'}
+        if dest = startingnode: continue
+        tempdistance = weight # set the current hop distance
+
+        ## look at all edges from dest
+    iterations - 1
+
+    print(pathsfornode)
 def shortestpath(): ## Compute the shortest path from one vertex to the rest of the verticies
     global matrix
-    ## this will need to make the user choose a path to generate all the different cities to choose from
-    
+    ## Choose a city to view the edges on it
+    availcities = listcities(matrix)
+    print("-- Please choose starting node --")
+    for i in range(len(availcities)):
+        print("{}. {}".format(i, availcities[i]))
+    try:
+        choicecity1 = int(input("choose node to compute shortest path with Bellman-Ford:\n#   "))
+    except ValueError: print("You must enter a int value"); return
+    choicename = availcities[choicecity1]
+    bellmanford(choicename, choicecity1)
+
 
 def importdata():
     global matrix
     matrix = [["------"]]
-    with open("network.txt","r") as file:
+    with open("network_small.txt","r") as file:
         while True:
             line = file.readline()
             if line == "": break 
             if "#" in line: continue
+            if ":" in line: continue
             elif line == "\n": continue
             line = line.replace("\n",("")); line = line.split(" ") ## Clean up the output and make list
             ## Now put data into our graph
@@ -216,11 +257,11 @@ def init():
         elif int(choice) == 3:
             deleteedge()
         elif int(choice) == 4:
-            print(choice)
+            shortestpath()
         elif int(choice) == 5:
             print(choice)
         elif int(choice) == 6:
-            save-all()
+            saveall()
         elif int(choice) == 7:
             break
         elif int(choice) == 9:

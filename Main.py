@@ -34,6 +34,19 @@ def listcities(matrix): ## Return a list of the cities in the array
         citylist.append(matrix[0][i])
     return citylist
 
+def chooseandreturn(): ## condense the return cities repetitive code.
+    global matrix
+    ## Choose a city to view the edges on it
+    availpaths = returnpaths(availcities[choicecity1], matrix) # Get all paths for the chosen city
+    print("-- Current Paths --\n\n"); counter = 0; # , start counter
+    for k, v in availpaths.items(): # display all dictionary keys
+        print("{}. {} - {}km".format(counter,k,v)); counter += 1
+    try: # Ask for user to choose a path to modify
+        choice = int(input("Path to modify (hit enter to return):   "))
+    except ValueError: input("\n\n\nYou must enter a int value,\npress enter to return to main menu"); return
+    return 
+
+
 # def returnpaths(city1, matrix): ## return a list of the paths len available to a city
 #     loc = matrixcityloc(city1, matrix)
 #     return(matrix[loc])
@@ -48,7 +61,7 @@ def returnpaths(city1, matrix): ## Return a dictionary of each path and weight f
         pathdict[matrix[0][i+1]] = cityweight[i]
     return pathdict
     ### Ref
-    # Provice city name and the matrix
+    # Provice city name and the matrix 
     # Paths will be returned as a DICT
 
 def changeedge():
@@ -61,6 +74,8 @@ def changeedge():
         choicecity1 = int(input("choice:   "))
     except ValueError: print("You must enter a int value"); return
     
+
+    ### WANT TO CONVERT THIS TO chooseandreturn function for simplicity. ###
     ## Choose a city to view the edges on it
     availpaths = returnpaths(availcities[choicecity1], matrix) # Get all paths for the chosen city
     print("-- Current Paths --\n\n"); counter = 0; # , start counter
@@ -78,7 +93,6 @@ def changeedge():
     
     ## set new value in matrix
     try: # Ask for user for new weight
-        
         newfloat = float(input("New weight (hit enter to cancel modification):   "))
     except ValueError: input("\n\n\nYou must enter a int value,\npress enter to return to main menu"); return
     availpaths[choicecity2] = newfloat # Update dict with new value
@@ -89,7 +103,7 @@ def changeedge():
     ### ONLY CHANGES THE FROM MATRIX FOR THAT NODE ###
         # need to change it in the other axis for #
 
-def deleteedge():
+def deleteedge(): ## Pretty much 80% the same as edit edge
     global matrix # We want to edit matricies easier + error handeling
     availcities = listcities(matrix)
     print("-- Please choose starting node --")
@@ -119,8 +133,13 @@ def deleteedge():
     for k, v in availpaths.items(): # add all values back into a matrix
         pushmatrix.append(v)
     matrix[choicecity1 +1] = pushmatrix # push to main matrix
-    ### ONLY CHANGES THE FROM MATRIX FOR THAT NODE ###
-        # need to change it in the other axis for #
+    ### ONLY CHANGES THE FROM MATRIX FOR THAT Path, as it could be directed.
+
+
+def shortestpath(): ## Compute the shortest path from one vertex to the rest of the verticies
+    global matrix
+    ## this will need to make the user choose a path to generate all the different cities to choose from
+    
 
 def importdata():
     global matrix

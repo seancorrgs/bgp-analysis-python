@@ -151,7 +151,6 @@ def bellmanford(startingnode, startingindex): ## Called from shortest path funct
     # input(nexthoplist)
     
     iterations = len(pathsfornode) - 1 # Max iteration, we will use this later
-    input(iterations)
     while iterations > 0: 
         for dest, weight in pathsfornode.items(): # {'Ottawa': '------', 'Montreal': '199', 'Kingston': '196', 'Oshawa': '------', 'Whitby': '------', 'Toronto': '------'}
             ## GET SOME TEMP INFO FOR THIS HOP
@@ -171,12 +170,8 @@ def bellmanford(startingnode, startingindex): ## Called from shortest path funct
                 if nextweight == '------': continue 
                 if pathsfornode[nexthop] == '------': pathsfornode[nexthop] = float(nextweight) + float(tempdistance); nexthoplist[nexthop] = dest; continue
                 if float(pathsfornode[nexthop]) > float(nextweight) + float(tempdistance): pathsfornode[nexthop] = float(nextweight) + float(tempdistance); nexthoplist[nexthop] = dest; continue
-
-            # nexthop[dest] =
-        iterations -= 1
-
-    print("\n\n\n{}\n".format(nexthoplist))
-    input(pathsfornode)
+        iterations -= 1 # Increment Counter Down
+    return nexthoplist, pathsfornode
 
 def shortestpath(): ## Compute the shortest path from one vertex to the rest of the verticies
     global matrix
@@ -189,7 +184,11 @@ def shortestpath(): ## Compute the shortest path from one vertex to the rest of 
         choicecity1 = int(input("choose node to compute shortest path with Bellman-Ford:\n#   "))
     except ValueError: print("You must enter a int value"); return
     choicename = availcities[choicecity1]
-    bellmanford(choicename, choicecity1)
+    nexthops, pathsfornode = bellmanford(choicename, choicecity1)
+    counter = 0
+    for x,y in nexthops.items():
+        print("{}  | Next Hop -> {} |  Total Cost: {}".format(x,y, pathsfornode[x])) 
+    input("\n\nPress Enter to return to main menu")
 
 
 def importdata():

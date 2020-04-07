@@ -31,32 +31,18 @@ def listcities(matrix): ## Return a list of the cities in the array
         citylist.append(matrix[0][i])
     return citylist
 
-# def chooseandreturn(): ## condense the return cities repetitive code.
-#     global matrix
-#     ## Choose a city to view the edges on it
-#     availpaths = returnpaths(availcities[choicecity1], matrix) # Get all paths for the chosen city
-#     print("-- Current Paths --\n\n"); counter = 0; # , start counter
-#     for k, v in availpaths.items(): # display all dictionary keys
-#         print("{}. {} - {}km".format(counter,k,v)); counter += 1
-#     try: # Ask for user to choose a path to modify
-#         choice = int(input("Path to modify (hit enter to return):   "))
-#     except ValueError: input("\n\n\nYou must enter a int value,\npress enter to return to main menu"); return
-#     return 
-
-
-# def returnpaths(city1, matrix): ## return a list of the paths len available to a city
-#     loc = matrixcityloc(city1, matrix)
-#     return(matrix[loc])
-
 def returnpaths(city1): ## Return a dictionary of each path and weight from a point
     global matrix
     loc = matrixcityloc(city1, matrix) # find the xy of city
-    cityweight = matrix[loc] # pick the weights froms the matrix
+    cityweight = list(matrix[loc]) # pick the weights froms the matrix
     cityweight.pop(0) # RM name of the path
     pathdict = dict() # init Dictionary
     for i in range(len(cityweight)):
         # if cityweight[i] == "------": continue we need to keep the structure of the matrix to be able to convert back
-        pathdict[matrix[0][i+1]] = cityweight[i]
+        try:
+            pathdict[matrix[0][i+1]] = cityweight[i]
+        except IndexError:
+            return pathdict
     return pathdict
     ### Ref
     # Provice city name | Matrix must be global from requesting function
@@ -91,7 +77,7 @@ def changeedge():   ## Change a specific path in the graph
     
     ## set new value in matrix
     try: # Ask for user for new weight
-        newfloat = float(input("New weight (hit enter to cancel modification):   "))
+        newfloat = int(input("New weight (hit enter to cancel modification):   "))
     except ValueError: input("\n\n\nYou must enter a int value,\npress enter to return to main menu"); return
     availpaths[choicecity2] = newfloat # Update dict with new value
     pushmatrix = [listcities(matrix)[choicecity1]] # matrix to add back [add name into matrix]
@@ -139,7 +125,7 @@ def deletenode(): ## Delete an entire node from the graph including all referanc
 
 def bellmanford(startingnode, startingindex): ## Called from shortest path function for simplicity
     global matrix
-    pathsfornode = returnpaths(startingnode)    # This is the current direct paths we have
+    pathsfornode = dict(returnpaths(startingnode))    # This is the current direct paths we have
     pathstocompute = listcities(matrix)         # This is all the destinations we need to get to
 
     ## Bring the pathsfornode DICT up to speed on total not just computed paths
@@ -161,32 +147,33 @@ def bellmanford(startingnode, startingindex): ## Called from shortest path funct
     nexthoplist = dict(pathsfornode) # set a next hop list of the path for node DICT
     for x,y in nexthoplist.items(): ## For each city
         nexthoplist[x] = x # Set all next hops to self '
-    print(pathsfornode)
-    input(nexthoplist)
+    # print(pathsfornode)
+    # input(nexthoplist)
     
     iterations = len(pathsfornode) - 1 # Max iteration, we will use this later
-    # while iterations <= 0: 
-    for dest, weight in pathsfornode.items(): # {'Ottawa': '------', 'Montreal': '199', 'Kingston': '196', 'Oshawa': '------', 'Whitby': '------', 'Toronto': '------'}
-        ## GET SOME TEMP INFO FOR THIS HOP
-        if dest == startingnode: continue ## if nexthop is current node ignore
-        if weight == '------': continue # no route to host, dont compute
-        # input(str(dest) + str(weight))
+    input(iterations)
+    while iterations > 0: 
+        for dest, weight in pathsfornode.items(): # {'Ottawa': '------', 'Montreal': '199', 'Kingston': '196', 'Oshawa': '------', 'Whitby': '------', 'Toronto': '------'}
+            ## GET SOME TEMP INFO FOR THIS HOP
+            if dest == startingnode: continue ## if nexthop is current node ignore
+            if weight == '------': continue # no route to host, dont compute
+            # input(str(dest) + str(weight))
 
-        ## Setup some vars
-        tempdistance = weight # set the current hop distance
-        temppathweights = returnpaths(dest) # get the list of destinations from this 
+            ## Setup some vars
+            tempdistance = weight # set the current hop distance
+            temppathweights = dict(returnpaths(dest)) # get the list of destinations from this node 
 
-        ## CHECK THE LENGTHS OF THE LIST AGAINST THE CURRENT HOP LIST
-        counter = 0 # init counter
-        for nexthop, nextweight in temppathweights.items(): # pull nexthop and the cost from current node
-            tempdistance = int(weight) # set the current hop distance
-            if nexthop == startingnode: continue 
-            if nextweight == '------': continue 
-            if pathsfornode[nexthop] == '------': pathsfornode[nexthop] = int(nextweight) + int(tempdistance); nexthoplist[nexthop] = dest; continue
-            if int(pathsfornode[nexthop]) > int(nextweight) + int(tempdistance): pathsfornode[nexthop] = int(nextweight) + int(tempdistance); nexthoplist[nexthop] = dest; continue
+            ## CHECK THE LENGTHS OF THE LIST AGAINST THE CURRENT HOP LIST
+            counter = 0 # init counter
+            for nexthop, nextweight in temppathweights.items(): # pull nexthop and the cost from current node
+                tempdistance = float(weight) # set the current hop distance
+                if nexthop == startingnode: continue 
+                if nextweight == '------': continue 
+                if pathsfornode[nexthop] == '------': pathsfornode[nexthop] = float(nextweight) + float(tempdistance); nexthoplist[nexthop] = dest; continue
+                if float(pathsfornode[nexthop]) > float(nextweight) + float(tempdistance): pathsfornode[nexthop] = float(nextweight) + float(tempdistance); nexthoplist[nexthop] = dest; continue
 
-        # nexthop[dest] =
-    iterations - 1
+            # nexthop[dest] =
+        iterations -= 1
 
     print("\n\n\n{}\n".format(nexthoplist))
     input(pathsfornode)

@@ -148,7 +148,9 @@ def bellmanford(startingnode, startingindex): ## Called from shortest path funct
     #         pathsfornode[x] = 0
     ## Check if city is in dict / if not then set to ------
     currentcities = [] ## INIT LIST
+    nexthop = []
     for x,y in pathsfornode.items():
+        nexthop[x] = "*"
         currentcities.append(x)
     input(currentcities)
     for target in pathstocompute: # for each overall destination
@@ -157,15 +159,22 @@ def bellmanford(startingnode, startingindex): ## Called from shortest path funct
             pathsfornode[target] = '------'
     ## Now we have a dict with current shortest paths (in order) and also ------ for paths with no route yet ##
     # We need to recurvively find new routes using pathsfornodes #
-    counter = 0 
+    nexthop = []
     iterations = len(pathsfornode) - 1 # Max iteration, we will use this later
     # while iterations <= 0: 
     for dest, weight in pathsfornode.items(): # {'Oshawa': '------', 'Montreal': '------', 'Ottawa': '------', 'Kingston': '196', 'Whitby': '------', 'Toronto': '------'}
-        if dest == startingnode: continue
+        ## GET SOME TEMP INFO FOR THIS HOP
+        if dest == startingnode: continue ## if nexthop is current node ignore
+        if weight == '------': continue # no route to host, dont compute
+        ## Setup some vars
         tempdistance = weight # set the current hop distance
-        if tempdistance == '------': continue
-        searching paths:
-        ## look at all edges from dest
+        temppathweights = returnpaths(dest) # get the list of destinations from this 
+        
+        ## CHECK THE LENGTHS OF THE LIST AGAINST THE CURRENT HOP LIST
+        counter = 0 # init counter
+        for weight in templistofpaths 
+
+        nexthop[dest] =
     iterations - 1
 
     print(pathsfornode)

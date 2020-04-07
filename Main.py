@@ -190,6 +190,9 @@ def shortestpath(): ## Compute the shortest path from one vertex to the rest of 
         print("{}  | Next Hop -> {} |  Total Cost: {}".format(x,y, pathsfornode[x])) 
     input("\n\nPress Enter to return to main menu")
 
+def minimumspanningTree():
+    pass
+    # We will compute minimum spanning tree
 
 def importdata():
     global matrix

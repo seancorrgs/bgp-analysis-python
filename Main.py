@@ -148,36 +148,49 @@ def bellmanford(startingnode, startingindex): ## Called from shortest path funct
     #         pathsfornode[x] = 0
     ## Check if city is in dict / if not then set to ------
     currentcities = [] ## INIT LIST
-    nexthop = []
+    nexthop = dict()
     for x,y in pathsfornode.items():
         nexthop[x] = "*"
         currentcities.append(x)
-    input(currentcities)
     for target in pathstocompute: # for each overall destination
         if target in currentcities: continue
         else:
             pathsfornode[target] = '------'
     ## Now we have a dict with current shortest paths (in order) and also ------ for paths with no route yet ##
     # We need to recurvively find new routes using pathsfornodes #
-    nexthop = []
+    nexthoplist = dict(pathsfornode) # set a next hop list of the path for node DICT
+    for x,y in nexthoplist.items(): ## For each city
+        nexthoplist[x] = x # Set all next hops to self '
+    print(pathsfornode)
+    input(nexthoplist)
+    
     iterations = len(pathsfornode) - 1 # Max iteration, we will use this later
     # while iterations <= 0: 
-    for dest, weight in pathsfornode.items(): # {'Oshawa': '------', 'Montreal': '------', 'Ottawa': '------', 'Kingston': '196', 'Whitby': '------', 'Toronto': '------'}
+    for dest, weight in pathsfornode.items(): # {'Ottawa': '------', 'Montreal': '199', 'Kingston': '196', 'Oshawa': '------', 'Whitby': '------', 'Toronto': '------'}
         ## GET SOME TEMP INFO FOR THIS HOP
         if dest == startingnode: continue ## if nexthop is current node ignore
         if weight == '------': continue # no route to host, dont compute
+        # input(str(dest) + str(weight))
+
         ## Setup some vars
         tempdistance = weight # set the current hop distance
         temppathweights = returnpaths(dest) # get the list of destinations from this 
-        
+
         ## CHECK THE LENGTHS OF THE LIST AGAINST THE CURRENT HOP LIST
         counter = 0 # init counter
-        for weight in templistofpaths 
+        for nexthop, nextweight in temppathweights.items(): # pull nexthop and the cost from current node
+            tempdistance = int(weight) # set the current hop distance
+            if nexthop == startingnode: continue 
+            if nextweight == '------': continue 
+            if pathsfornode[nexthop] == '------': pathsfornode[nexthop] = int(nextweight) + int(tempdistance); nexthoplist[nexthop] = dest; continue
+            if int(pathsfornode[nexthop]) > int(nextweight) + int(tempdistance): pathsfornode[nexthop] = int(nextweight) + int(tempdistance); nexthoplist[nexthop] = dest; continue
 
-        nexthop[dest] =
+        # nexthop[dest] =
     iterations - 1
 
-    print(pathsfornode)
+    print("\n\n\n{}\n".format(nexthoplist))
+    input(pathsfornode)
+
 def shortestpath(): ## Compute the shortest path from one vertex to the rest of the verticies
     global matrix
     ## Choose a city to view the edges on it
@@ -195,7 +208,7 @@ def shortestpath(): ## Compute the shortest path from one vertex to the rest of 
 def importdata():
     global matrix
     matrix = [["------"]]
-    with open("network_small.txt","r") as file:
+    with open("network.txt","r") as file:
         while True:
             line = file.readline()
             if line == "": break 

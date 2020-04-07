@@ -1,7 +1,8 @@
 ##########################
 # Sean Corrigan 2020
 # 100693058
-# https://gitlab.platinumnetworks.ca/imp4ct
+# 
+# https://gitlab.platinumnetworks.ca/imp4ct/infr2820-final/ < GIT History | private until day after assignment is submitted 
 ##########################
 
 def matrixexists(s4arch, matrix): ## Check if the city exists in the matrix
@@ -160,9 +161,10 @@ def bellmanford(startingnode, startingindex): ## Called from shortest path funct
     iterations = len(pathsfornode) - 1 # Max iteration, we will use this later
     # while iterations <= 0: 
     for dest, weight in pathsfornode.items(): # {'Oshawa': '------', 'Montreal': '------', 'Ottawa': '------', 'Kingston': '196', 'Whitby': '------', 'Toronto': '------'}
-        if dest = startingnode: continue
+        if dest == startingnode: continue
         tempdistance = weight # set the current hop distance
-
+        if tempdistance == '------': continue
+        searching paths:
         ## look at all edges from dest
     iterations - 1
 
@@ -237,6 +239,7 @@ def debug(matrix):
 
 def init():
     while True:
+        choice = 0
         print("\n" * 50)
         print("Choose a function\n\
             1. Build initial Graph from \"network.txt\"\n\

@@ -4,6 +4,9 @@
 # 
 # https://gitlab.platinumnetworks.ca/imp4ct/infr2820-final/ < GIT History | private until day after assignment is submitted 
 ##########################
+import matplotlib
+import networkx
+
 
 def matrixexists(s4arch, matrix): ## Check if the city exists in the matrix
     if s4arch in matrix[0]:
@@ -22,7 +25,7 @@ def returnedgeweight(city1, city2, matrix): ## Return the edge weight of 2 citie
     return weight
 
 def displaymatrix(matrix): ## Print the matrix nicely for the debug screen
-    print(matrix)
+    pass
 
 def listcities(matrix): ## Return a list of the cities in the array
     citylist = []
@@ -119,9 +122,32 @@ def deleteedge(): ## Pretty much 80% the same as edit edge
     matrix[choicecity1 +1] = pushmatrix # push to main matrix
     ### ONLY CHANGES THE FROM MATRIX FOR THAT Path, as it could be directed.
 
-def deletenode(): ## Delete an entire node from the graph including all referances
+def deletenodeselect(): # Delete entire node function including asking for what node || Will call the deletenode() API
     global matrix
+    ## Choose a city to view the edges on it
+    availcities = listcities(matrix)
+    print("-- List of Nodes --")
+    for i in range(len(availcities)):
+        print("{}. {}".format(i, availcities[i]))
+    try:
+        choicecity1 = int(input("\nEnter to Return\nChoose a node to delete..\n#   "))
+    except ValueError: print("You must enter a int value"); return
+    input(choicecity1)
+    if choicecity1 == "": return
+    deletenode(choicecity1)
+
+def deletenode(nodetodelete): ## Delete an entire node callable as API
+    global matrix
+    matrix[0][nodetodelete+1] = "------"
+    matrix[nodetodelete + 1] = ["------"]
+    for x in matrix:
+        try:
+            x[nodetodelete + 1] = "------" # Replace all occasions of that node in other paths.
+        except IndexError:
+            pass
     ## Loop through each 'row' in the matrix deleting a certain matrix index IF IT IS AVAILABLE
+
+
 
 def bellmanford(startingnode, startingindex): ## Called from shortest path function for simplicity
     global matrix
@@ -166,8 +192,8 @@ def bellmanford(startingnode, startingindex): ## Called from shortest path funct
             counter = 0 # init counter
             for nexthop, nextweight in temppathweights.items(): # pull nexthop and the cost from current node
                 tempdistance = float(weight) # set the current hop distance
-                if nexthop == startingnode: continue 
-                if nextweight == '------': continue 
+                if nexthop == startingnode: continue # ignore node if its the source of the hop
+                if nextweight == '------': continue  # ignore if no hop available
                 if pathsfornode[nexthop] == '------': pathsfornode[nexthop] = float(nextweight) + float(tempdistance); nexthoplist[nexthop] = dest; continue
                 if float(pathsfornode[nexthop]) > float(nextweight) + float(tempdistance): pathsfornode[nexthop] = float(nextweight) + float(tempdistance); nexthoplist[nexthop] = dest; continue
         iterations -= 1 # Increment Counter Down
@@ -256,10 +282,11 @@ def init():
             1. Build initial Graph from \"network.txt\"\n\
             2. Change an Edge weight\n\
             3. Remove Edge\n\
-            4. Find and Display all shortest paths\n\
-            5. Minimum Spanning Tree\n\
-            6. Save-all\n\
-            7. Quit\n\
+            4. Delete Entire Node\n\
+            5. Find and Display all shortest paths\n\
+            6. Minimum Spanning Tree\n\
+            7. Save-all\n\
+            8. Quit\n\
             9. Debug")
         try:
             choice = int(input("choice:   "))
@@ -271,13 +298,15 @@ def init():
         elif int(choice) == 3:
             deleteedge()
         elif int(choice) == 4:
-            shortestpath()
+            deletenodeselect()
         elif int(choice) == 5:
-            print(choice)
+            shortestpath()
         elif int(choice) == 6:
-            saveall()
+            pass
         elif int(choice) == 7:
-            break
+            saveall()
+        elif int(choice) == 8:
+            return
         elif int(choice) == 9:
             debug(matrix)
         else: continue

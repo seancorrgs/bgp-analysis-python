@@ -221,9 +221,50 @@ def shortestpath(): ## Compute the shortest path from one vertex to the rest of 
         print("{}  | Next Hop -> {} |  Total Cost: {}".format(x,y, pathsfornode[x])) 
     input("\n\nPress Enter to return to main menu")
 
+def deleteallcontent(matrix): ## Delete all the weights to create a blank table
+    newmatrix = []
+    for i in matrix: # for each list of edges
+        newSubMatrix = [] # create temp matrix 
+        for x in i: # for each individual edge
+            try:
+                float(x)
+                newSubMatrix.append("------")
+            except:
+                newSubMatrix.append(x)
+        newmatrix.append(newSubMatrix)
+    return newmatrix
+
 def minimumspanningTree():
-    pass
-    # We will compute minimum spanning tree
+    global matrix
+    ## Set up some temporary matricies to work with in this algorithim
+    tempmatrix = list(matrix)            # Make a matrix that we can delete from as we use it
+    MSTmatrix = deleteallcontent(matrix) # Create a blank table to contain the new MST
+    listOweights = []; visitedNodes = [] # Create a list for the order of weights and the nodes we have visited
+
+    ## make an ordered list of all the edges in the matrix
+    for i in matrix:    # for each list of edges
+        for x in i:     # for each individual edge
+            try:    # if the item is actually a float 
+                listOweights.append(float(x))
+            except:
+                continue
+    listOweights = sorted(listOweights, key=float) # sort the list from smallest to largest
+    
+    ## Start making a MST Matrix
+    for weight in listOweights:
+        for i in range(len(tempmatrix)):    # for each list of edges
+            for x in range(len(tempmatrix[i])):     # for each individual edge
+                try:    # if the item is actually a float 
+                    float(tempmatrix[i][x])
+                    if float(tempmatrix[i][x]) == float(weight): ## if this is one of the weights we need to add
+                        if tempmatrix[0][x] in visitedNodes: continue
+                        MSTmatrix[i][x] = tempmatrix[i][x]
+                        visitedNodes.append(tempmatrix[0][x])
+                        tempmatrix[i][x] = "------" # delete from the temp matrix as to not repeat
+                except: continue
+        
+    print(MSTmatrix)
+
 
 def importdata():
     global matrix
@@ -259,10 +300,8 @@ def importdata():
     return matrix
 
 def saveall(matrix): # Save the updated matrix
-    print("Forcing Save")
-    print("Save Complete.")
-
-
+    # Need a save function to overwrite network.txt if it has been modified
+    pass
 
 def debug(matrix):
      # Testing Area
@@ -307,7 +346,7 @@ def init():
         elif int(choice) == 5:
             shortestpath()
         elif int(choice) == 6:
-            pass
+            minimumspanningTree()
         elif int(choice) == 7:
             saveall()
         elif int(choice) == 8:

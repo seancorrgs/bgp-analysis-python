@@ -7,7 +7,9 @@
          
 **This Project assumes a unidirectional link in line with clairification from Dr. Khalil El-Khatib**
     
-    Q: "should we be limiting a path to uni-directional links or should a path from toronto-hamilton also go hamilton-toronto at the same weight?"
+    Q: "should we be limiting a path to uni-directional links 
+    or should a path from toronto-hamilton also go hamilton-toronto 
+    at the same weight?"
     
     Dr. El-Khatib -  "you can make any assumption you want about this."
 
@@ -101,7 +103,7 @@ When choosing 3 on the main menu the user will be presented with the option to p
 Choosing 0 then 1 in this example, removes the edge from Ottawa to Montreal; instead replacing it with the weight of '------' in the Matrix
 
 #### Removing a Node 
-##### Menu Option -
+###### Menu Option -
 
     Documentation will be added once the function is added
     

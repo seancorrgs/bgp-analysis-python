@@ -29,7 +29,7 @@ The code will then import the file line by line into its internal matricies igno
     # Originating Point, Destination Point, Cost
     Ottawa Whitby 1
     Whitby Oshawa 1
-    Oshawa Whitby 9
+    Oshawa Toronto 9
 
 #### Change an edge weight - 
 
@@ -60,14 +60,40 @@ You may then choose an edge to edit and put in a new value
     Path to modify (hit enter to return):   3
     New weight (hit enter to cancel modification):   32
 
+#### Remove an Edge
 
+When choosing 3 on the main menu the user will be presented with the option to present an edge weight via a choice of a src and destination to locate the edge to be deleted
+    
+    -- Please choose starting node --
+    0. Ottawa
+    1. Montreal
+    2. Kingston
+    3. Oshawa
+    4. Whitby
+    5. Toronto
+    choice:   0
+    -- Current Paths --
+    
+    
+    0. Ottawa - ------km
+    1. Montreal - 199km
+    2. Kingston - 196km
+    3. Oshawa - 10km
+    4. Whitby - 1km
+    Path to delete (hit enter to return):   1
+
+Choosing 0 then 1 in this example, removes the edge from Ottawa to Montreal; instead replacing it with the weight of '------' in the Matrix
+
+#### Removing a Node
+    
+    Documentation will be added once the function is added
+    
+#### Display shortest path from a node
 
 
 
 ### License
 ##### BSD-0 
-
-
 Copyright (C) 2020 by Sean Corrigan sean.corrigan1@uoit.net
 
 Permission to use, copy, modify, and/or distribute this software for any purpose with or without fee is hereby granted.

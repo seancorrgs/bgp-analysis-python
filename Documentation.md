@@ -14,6 +14,7 @@
     Dr. El-Khatib -  "you can make any assumption you want about this."
 
 I have assumed the following:
+
 a connection may have one route cost one way and a **different** route cost the other way (eg. longer fiber for TX than RX)
 
 

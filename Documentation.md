@@ -2,6 +2,19 @@
 #### INFR2020 Final Project
 
 [GITLAB REPO](https://gitlab.platinumnetworks.ca/imp4ct/infr2820-final/)
+##### Dependancies !!!!
+    Matplotlib
+    Networkx
+    
+    
+**This Project assumes a unidirectional link in line with Dr. Khalil El-Khatib's direction**
+    
+    Q: "should we be limiting a path to uni-directional links or should a path from toronto-hamilton also go hamilton-toronto at the same weight?"
+    
+    Dr. El-Khatib -  "you can make any assumption you want about this."
+
+I have assumed that a connection may have one route cost one way and a **different** route cost the other way (eg. longer fiber for TX than RX)
+
 
 ### Main Menu Options
 

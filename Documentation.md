@@ -3,8 +3,7 @@
 
 [GITLAB REPO](https://gitlab.platinumnetworks.ca/imp4ct/infr2820-final/)
 ##### Dependancies !!!!
-    Matplotlib
-    Networkx
+    There are no dependencies over stock python3
     
     
 **This Project assumes a unidirectional link in line with clairification from Dr. Khalil El-Khatib**

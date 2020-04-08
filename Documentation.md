@@ -100,8 +100,7 @@ When choosing 3 on the main menu the user will be presented with the option to p
 
 Choosing 0 then 1 in this example, removes the edge from Ottawa to Montreal; instead replacing it with the weight of '------' in the Matrix
 
-#### Removing a Node
-###### Menu Option -
+#### Removing a Node ###### Menu Option -
 
     Documentation will be added once the function is added
     

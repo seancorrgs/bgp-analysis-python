@@ -4,8 +4,8 @@
 # 
 # https://gitlab.platinumnetworks.ca/imp4ct/infr2820-final/ < GIT History | private until day after assignment is submitted 
 ##########################
-import matplotlib
-import networkx
+import networkx as nx
+import matplotlib.pyplot as plt
 
 
 def matrixexists(s4arch, matrix): ## Check if the city exists in the matrix
@@ -25,8 +25,13 @@ def returnedgeweight(city1, city2, matrix): ## Return the edge weight of 2 citie
     return weight
 
 def displaymatrix(matrix): ## Print the matrix nicely for the debug screen
-    pass
-
+    for x in matrix:
+        if x[0] == "------": continue ## Ignore invalid matricies
+        print("\n\n{} Available Paths".format(x[0]))
+        for i in range(len(x)):
+            if i == 0: continue
+            print("Dest: {}  | Cost: {}".format(matrix[0][i],x[i]))
+    input("\nPress Return to go back to the main menu")
 def listcities(matrix): ## Return a list of the cities in the array
     citylist = []
     for i in range(len(matrix[0])):
@@ -287,7 +292,7 @@ def init():
             6. Minimum Spanning Tree\n\
             7. Save-all\n\
             8. Quit\n\
-            9. Debug")
+            9. Display Current Graph")
         try:
             choice = int(input("choice:   "))
         except ValueError: print("You must enter a int value")
@@ -308,7 +313,7 @@ def init():
         elif int(choice) == 8:
             return
         elif int(choice) == 9:
-            debug(matrix)
+            displaymatrix(matrix)
         else: continue
        
        

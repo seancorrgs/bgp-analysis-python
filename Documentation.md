@@ -123,6 +123,19 @@ The program will then provide the user with a list of all the nodes loaded
 
 The code will then delete that node by looping through the entire matrix for any referance to that node, for example if the node has multiple paths to other nodes the program will 'zero-out' that path list so that all values equal '------' which is the programs way to signify a null value.
 
+The **code responsable** for doing this is the deletenode() function.
+
+        matrix[0][nodetodelete+1] = "------" # Delete node reference in the main table
+        matrix[nodetodelete + 1] = ["------"] # Delete any reference to the user 
+        for x in matrix: # for each node pathway list | Delete the nodes path to the node we are deleting
+            try:
+                x[nodetodelete + 1] = "------" # Replace all occasions of that node in other paths.
+            except IndexError: # if there was never a reference to a node path at that list
+                pass # move on to next item in list
+
+
+
+
 #### Display shortest path from a single root node
 ###### Menu Option -
 

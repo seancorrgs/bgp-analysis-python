@@ -18,6 +18,11 @@ I have assumed the following:
 a connection may have one route cost one way and a **different** route cost the other way (eg. longer fiber for TX than RX)
 **directed graph**
 
+# **Table of Contents**
+
+1. [Minimum Spanning Tree](# Display Minimum Spanning Tree Based on Kruskals Algorithim)
+2.
+3.
 
 ### Main Menu Options
 

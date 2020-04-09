@@ -318,7 +318,7 @@ def minimumspanningTree(mat):
 def importdata():
     global matrix
     matrix = [["------"]]
-    with open("network_sp.txt","r") as file:
+    with open("network.txt","r") as file:
         while True:
             line = file.readline()
             if line == "": break 

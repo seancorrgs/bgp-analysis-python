@@ -315,7 +315,7 @@ def minimumspanningTree(mat):
 def importdata():
     global matrix
     matrix = [["------"]]
-    with open("network.txt","r") as file:
+    with open("network_sp.txt","r") as file:
         while True:
             line = file.readline()
             if line == "": break 
@@ -353,15 +353,7 @@ def debug(matrix):
      # Testing Area
     print("\nTESTING\n-------")
     displaymatrix(matrix)
-        # print("\nOttawa to Oshawa Dist.")
-        # print(returnedgeweight("Ottawa","Kingston", matrix)) 
     print(listcities(matrix))
-        # dict = returnpaths("Oshawa", matrix)
-        # print(dict)
-        # # loc = matrixcityloc("", matrix)
-        # # print(loc)
-        # # print(matrix[loc][0], matrix[0][loc])
-        # input("")
 
 
 def init():

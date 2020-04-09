@@ -4,9 +4,6 @@
 # 
 # https://gitlab.platinumnetworks.ca/imp4ct/infr2820-final/ < GIT History | private until day after assignment is submitted 
 ##########################
-import networkx as nx
-import matplotlib.pyplot as plt
-
 
 def matrixexists(s4arch, matrix): ## Check if the city exists in the matrix
     if s4arch in matrix[0]:

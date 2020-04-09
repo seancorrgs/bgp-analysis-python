@@ -18,13 +18,8 @@ I have assumed the following:
 a connection may have one route cost one way and a **different** route cost the other way (eg. longer fiber for TX than RX)
 **directed graph**
 
-# **Table of Contents**
 
-1. [Minimum Spanning Tree](#display-minimum-spanning-tree-based-on-kruskals-algorithim)
-2.
-3.
-
-### 1. Main Menu Options
+### Main Menu Options
 
 The code will provide options to the user in line with each requirement of the assignment that was asked for (it has the following sections)
 
@@ -32,13 +27,13 @@ The code will provide options to the user in line with each requirement of the a
 2. Change an Edge weight
 3. Remove Edge
 4. Find and Display all shortest paths
-5. [Minimum Spanning Tree](#display-minimum-spanning-tree-based-on-kruskals-algorithim)
+5. [Minimum Spanning Tree](#5-display-minimum-spanning-tree-based-on-kruskals-algorithim)
 6. Save-all
 7. Quit
 9. Debug
  
 
-#### Build initial graph from "network.txt"
+#### 1. Build initial graph from "network.txt"
 ###### Menu Option - 
 
 To build an initial graph from a text file you must have a text file in the directory you are running the code from named "network.txt"
@@ -52,7 +47,7 @@ To build an initial graph from a text file you must have a text file in the dire
 
 The code will then import the file line by line into its internal matricies ignoring any lines that are blank or include a # in that line (useful for commenting out a line for testing)
 
-#### Change an edge weight 
+#### 2. Change an edge weight 
 ###### Menu Option - 
 
 To change an edge weight the user must provide a src and destination the program will provide an input for both
@@ -82,7 +77,7 @@ You may then choose an edge to edit and put in a new value
     Path to modify (hit enter to return):   3
     New weight (hit enter to cancel modification):   32
 
-#### Remove an Edge
+#### 3. Remove an Edge
 ###### Menu Option -
 
 When choosing 3 on the main menu the user will be presented with the option to present an edge weight via a choice of a src and destination to locate the edge to be deleted
@@ -107,7 +102,7 @@ When choosing 3 on the main menu the user will be presented with the option to p
 
 Choosing 0 then 1 in this example, removes the edge from Ottawa to Montreal; instead replacing it with the weight of '------' in the Matrix
 
-#### Removing a Node 
+#### 4. Removing a Node 
 ###### Menu Option -
 
 If the user would like to remove a node the matrix then they can do so.
@@ -140,7 +135,7 @@ The **code responsable** for doing this is the deletenode() function.
 
 
 
-#### Display shortest path from a single root node
+#### 5. Display shortest path from a single root node
 ###### Menu Option - #5
 
 To display a shortest path calculation from a specific node the program will ask the user which node to run from:

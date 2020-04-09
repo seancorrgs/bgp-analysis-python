@@ -170,42 +170,42 @@ The function does a few things to implement the Bellman-Ford algorithim algorith
 
 1. The Algorithim will create a list of each node with a weight from the current node:
 
-    currentcities = [] ## INIT LIST
-    nexthop = dict()
+        currentcities = [] ## INIT LIST
+        nexthop = dict()
 
 2. The algorithim will then make a list for any next-hops that need to be recorded by the algorithim:
 
-    nexthoplist = dict(pathsfornode) # set a next hop list of the path for node DICT
-    for x,y in nexthoplist.items(): ## For each city
-        nexthoplist[x] = x # Set all next hops to self '
+        nexthoplist = dict(pathsfornode) # set a next hop list of the path for node DICT
+        for x,y in nexthoplist.items(): ## For each city
+            nexthoplist[x] = x # Set all next hops to self '
 
 3.  The algorithim will itterate throughout the list of weights and compare them with the current list that are stored in the functions memory. Then if it finds a path with a shorter path to the destination in that iteration it will then return 
 
-    iterations = len(pathsfornode) - 1 # Max iteration, we will use this later
-        while iterations > 0: 
-            for dest, weight in pathsfornode.items(): # {'Ottawa': '------', 'Montreal': '199', 'Kingston': '196', 'Oshawa': '------', 'Whitby': '------', 'Toronto': '------'}
-                
-                ## GET SOME TEMP INFO FOR THIS HOP
-                if dest == startingnode: continue ## if nexthop is current node ignore
-                if weight == '------': continue # no route to host, dont compute
+        iterations = len(pathsfornode) - 1 # Max iteration, we will use this later
+            while iterations > 0: 
+                for dest, weight in pathsfornode.items(): # {'Ottawa': '------', 'Montreal': '199', 'Kingston': '196', 'Oshawa': '------', 'Whitby': '------', 'Toronto': '------'}
+                    
+                    ## GET SOME TEMP INFO FOR THIS HOP
+                    if dest == startingnode: continue ## if nexthop is current node ignore
+                    if weight == '------': continue # no route to host, dont compute
 
-                ## Setup some vars before the nexthop comparisons
-                tempdistance = weight # set the current hop distance
-                temppathweights = dict(returnpaths(dest)) # get the list of destinations from this node 
+                    ## Setup some vars before the nexthop comparisons
+                    tempdistance = weight # set the current hop distance
+                    temppathweights = dict(returnpaths(dest)) # get the list of destinations from this node 
 
-                ## CHECK THE LENGTHS OF THE LIST AGAINST THE CURRENT HOP LIST
-                counter = 0 # init counter
-                for nexthop, nextweight in temppathweights.items(): # pull nexthop and the cost from current node
-                    tempdistance = float(weight) # set the current hop distance
-                    if nexthop == startingnode: continue ## ignore node if its the source of the hop
-                    if nextweight == '------': continue  ## ignore if no hop available
-                    if pathsfornode[nexthop] == '------':  ## if theere is no nexthop/path for the current path
-                        pathsfornode[nexthop] = float(nextweight) + float(tempdistance) # Set path to our current path + current next hop amount
-                        nexthoplist[nexthop] = dest     # Set the next hop as the hop it 
-                        continue # start loop again
-                    if float(pathsfornode[nexthop]) > float(nextweight) + float(tempdistance): pathsfornode[nexthop] = float(nextweight) + float(tempdistance); nexthoplist[nexthop] = dest; continue
-            iterations -= 1 # Increment Counter Down
-        return nexthoplist, pathsfornode
+                    ## CHECK THE LENGTHS OF THE LIST AGAINST THE CURRENT HOP LIST
+                    counter = 0 # init counter
+                    for nexthop, nextweight in temppathweights.items(): # pull nexthop and the cost from current node
+                        tempdistance = float(weight) # set the current hop distance
+                        if nexthop == startingnode: continue ## ignore node if its the source of the hop
+                        if nextweight == '------': continue  ## ignore if no hop available
+                        if pathsfornode[nexthop] == '------':  ## if theere is no nexthop/path for the current path
+                            pathsfornode[nexthop] = float(nextweight) + float(tempdistance) # Set path to our current path + current next hop amount
+                            nexthoplist[nexthop] = dest     # Set the next hop as the hop it 
+                            continue # start loop again
+                        if float(pathsfornode[nexthop]) > float(nextweight) + float(tempdistance): pathsfornode[nexthop] = float(nextweight) + float(tempdistance); nexthoplist[nexthop] = dest; continue
+                iterations -= 1 # Increment Counter Down
+            return nexthoplist, pathsfornode
 
 
 #### Display Minimum Spanning Tree Based on Kruskals Algorithim

@@ -23,14 +23,15 @@ a connection may have one route cost one way and a **different** route cost the 
 
 The code will provide options to the user in line with each requirement of the assignment that was asked for (it has the following sections)
 
-1. Build initial Graph from "network.txt"
-2. Change an Edge weight
-3. Remove Edge
-4. Find and Display all shortest paths
-5. [Minimum Spanning Tree](#5-display-minimum-spanning-tree-based-on-kruskals-algorithim)
-6. Save-all
-7. Quit
-9. Debug
+1. [Build initial Graph from "network.txt"](#1-build-initial-graph-from-networktxt)
+2. [Change an Edge weight](#2-change-an-edge-weight)
+3. [Remove Edge](#3-remove-an-edge)
+4. [Remove Node](#4-removing-a-node)
+5. [Find and Display all shortest paths](#5-display-shortest-path-from-a-single-root-node)
+6. [Minimum Spanning Tree]()(#6-display-minimum-spanning-tree-based-on-kruskals-algorithim)
+7. [Save-all]
+8. [Quit]
+9. Debug #Menu for testing of features etc
  
 
 #### 1. Build initial graph from "network.txt"
@@ -207,7 +208,7 @@ The function does a few things to implement the Bellman-Ford algorithim algorith
             return nexthoplist, pathsfornode
 
 
-#### 5. Display Minimum Spanning Tree Based on Kruskals Algorithim
+#### 6. Display Minimum Spanning Tree Based on Kruskals Algorithim
 ###### Menu Option -
 
 pass

@@ -137,12 +137,82 @@ The **code responsable** for doing this is the deletenode() function.
 
 
 #### Display shortest path from a single root node
-###### Menu Option -
+###### Menu Option - #5
 
-    Documentation will be added shortly
+To display a shortest path calculation from a specific node the program will ask the user which node to run from:
+
+    -- Please choose starting node --
+    0. Ottawa
+    1. Montreal
+    2. Kingston
+    3. Oshawa
+    4. Whitby
+    5. Toronto
+    choose node to compute shortest path with Bellman-Ford:
+    #   
+
+When the user picks a node to start the Bellman-Ford algorithim the program will return a list of each destination, the next hop and the total cost for that path (including any hops):
+
+example:
+    Ottawa    | Next Hop -> Ottawa |  Total Cost: 5
+    Montreal  | Next Hop -> Ottawa |  Total Cost: 204.0
+    Kingston  | Next Hop -> Ottawa |  Total Cost: 201.0
+    Oshawa    | Next Hop -> Oshawa |  Total Cost: ------
+    Whitby    | Next Hop -> Ottawa |  Total Cost: 6.0
+    Toronto   | Next Hop -> Toronto|  Total Cost: 61
+
+
+    Press Enter to return to main menu
+
+###### The ALGORITHIM is implemented in the BELLMANFORD() function
+
+The function does a few things to implement the Bellman-Ford algorithim algorithim in Python without the use of **any** external algorithims
+
+1. The Algorithim will create a list of each node with a weight from the current node:
+
+    currentcities = [] ## INIT LIST
+    nexthop = dict()
+
+2. The algorithim will then make a list for any next-hops that need to be recorded by the algorithim:
+
+    nexthoplist = dict(pathsfornode) # set a next hop list of the path for node DICT
+    for x,y in nexthoplist.items(): ## For each city
+        nexthoplist[x] = x # Set all next hops to self '
+
+3.  The algorithim will itterate throughout the list of weights and compare them with the current list that are stored in the functions memory. Then if it finds a path with a shorter path to the destination in that iteration it will then return 
+
+    iterations = len(pathsfornode) - 1 # Max iteration, we will use this later
+        while iterations > 0: 
+            for dest, weight in pathsfornode.items(): # {'Ottawa': '------', 'Montreal': '199', 'Kingston': '196', 'Oshawa': '------', 'Whitby': '------', 'Toronto': '------'}
+                
+                ## GET SOME TEMP INFO FOR THIS HOP
+                if dest == startingnode: continue ## if nexthop is current node ignore
+                if weight == '------': continue # no route to host, dont compute
+
+                ## Setup some vars before the nexthop comparisons
+                tempdistance = weight # set the current hop distance
+                temppathweights = dict(returnpaths(dest)) # get the list of destinations from this node 
+
+                ## CHECK THE LENGTHS OF THE LIST AGAINST THE CURRENT HOP LIST
+                counter = 0 # init counter
+                for nexthop, nextweight in temppathweights.items(): # pull nexthop and the cost from current node
+                    tempdistance = float(weight) # set the current hop distance
+                    if nexthop == startingnode: continue ## ignore node if its the source of the hop
+                    if nextweight == '------': continue  ## ignore if no hop available
+                    if pathsfornode[nexthop] == '------':  ## if theere is no nexthop/path for the current path
+                        pathsfornode[nexthop] = float(nextweight) + float(tempdistance) # Set path to our current path + current next hop amount
+                        nexthoplist[nexthop] = dest     # Set the next hop as the hop it 
+                        continue # start loop again
+                    if float(pathsfornode[nexthop]) > float(nextweight) + float(tempdistance): pathsfornode[nexthop] = float(nextweight) + float(tempdistance); nexthoplist[nexthop] = dest; continue
+            iterations -= 1 # Increment Counter Down
+        return nexthoplist, pathsfornode
+
 
 #### Display Minimum Spanning Tree Based on Kruskals Algorithim
 ###### Menu Option -
+
+pass
+
 
 ### License
 ##### BSD-0 

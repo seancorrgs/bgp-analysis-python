@@ -260,6 +260,7 @@ def minimumspanningTree():
                         if tempmatrix[0][x] in visitedNodes: continue
                         MSTmatrix[i][x] = tempmatrix[i][x]
                         visitedNodes.append(tempmatrix[0][x])
+                        visitedNodes.append(tempmatrix[i][0])
                         tempmatrix[i][x] = "------" # delete from the temp matrix as to not repeat
                 except: continue
         

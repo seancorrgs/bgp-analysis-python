@@ -28,9 +28,9 @@ The code will provide options to the user in line with each requirement of the a
 3. [Remove Edge](#3-remove-an-edge)
 4. [Remove Node](#4-removing-a-node)
 5. [Find and Display all shortest paths](#5-display-shortest-path-from-a-single-root-node)
-6. [Minimum Spanning Tree](6-display-minimum-spanning-tree-based-on-kruskals-algorithim)
-7. [Save-all](7-save-all)
-8. [Quit](8-quit)
+6. [Minimum Spanning Tree](#6-display-minimum-spanning-tree-based-on-kruskals-algorithim)
+7. [Save-all](#7-save-all)
+8. [Quit](#8-quit)
 9. Debug #Menu for testing of features etc
  
 

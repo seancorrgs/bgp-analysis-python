@@ -141,7 +141,7 @@ The **code responsable** for doing this is the deletenode() function.
 
     Documentation will be added shortly
 
-#### Display Minimum Spanning Tree Based on Kruskals Algo
+#### Display Minimum Spanning Tree Based on Kruskals Algorithim
 ###### Menu Option -
 
 ### License

@@ -20,11 +20,11 @@ a connection may have one route cost one way and a **different** route cost the 
 
 # **Table of Contents**
 
-1. [Minimum Spanning Tree](# Display Minimum Spanning Tree Based on Kruskals Algorithim)
+1. [Minimum Spanning Tree](#display-minimum-spanning-tree-based-on-kruskals-algorithim)
 2.
 3.
 
-### Main Menu Options
+### 1. Main Menu Options
 
 The code will provide options to the user in line with each requirement of the assignment that was asked for.
 
@@ -33,7 +33,7 @@ The code will provide options to the user in line with each requirement of the a
             2. Change an Edge weight
             3. Remove Edge
             4. Find and Display all shortest paths
-            5. Minimum Spanning Tree
+            5. [Minimum Spanning Tree]((#display-minimum-spanning-tree-based-on-kruskals-algorithim))
             6. Save-all
             7. Quit
             9. Debug
@@ -213,7 +213,7 @@ The function does a few things to implement the Bellman-Ford algorithim algorith
             return nexthoplist, pathsfornode
 
 
-#### Display Minimum Spanning Tree Based on Kruskals Algorithim
+#### 5. Display Minimum Spanning Tree Based on Kruskals Algorithim
 ###### Menu Option -
 
 pass

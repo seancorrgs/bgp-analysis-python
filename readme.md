@@ -26,18 +26,17 @@ a connection may have one route cost one way and a **different** route cost the 
 
 ### 1. Main Menu Options
 
-The code will provide options to the user in line with each requirement of the assignment that was asked for.
+The code will provide options to the user in line with each requirement of the assignment that was asked for (it has the following sections)
 
-    Choose a function
-            1. Build initial Graph from "network.txt"
-            2. Change an Edge weight
-            3. Remove Edge
-            4. Find and Display all shortest paths
-            5. [Minimum Spanning Tree]((#display-minimum-spanning-tree-based-on-kruskals-algorithim))
-            6. Save-all
-            7. Quit
-            9. Debug
-    choice:   
+1. Build initial Graph from "network.txt"
+2. Change an Edge weight
+3. Remove Edge
+4. Find and Display all shortest paths
+5. [Minimum Spanning Tree](#display-minimum-spanning-tree-based-on-kruskals-algorithim)
+6. Save-all
+7. Quit
+9. Debug
+ 
 
 #### Build initial graph from "network.txt"
 ###### Menu Option - 

@@ -239,39 +239,80 @@ def deleteallcontent(tmatrix): ## Delete all the weights to create a blank table
         newmatrix.append(newSubMatrix)
     return newmatrix
 
-def minimumspanningTree(mat):
-    matrix = []
-    ## Set up some temporary matricies to work with in this algorithim
-    TMatric = mat.copy()                        # Make a matrix that we can delete from as we use it
-    mstMATRIX = deleteallcontent(TMatric.copy())       # Create a blank table to contain the new MST
-    listOweights = []; visitedNodes = []       # Create a list for the order of weights and the nodes we have visited
-
-    ## make an ordered list of all the edges in the matrix
-    for i in TMatric:    # for each list of edges
-        for x in i:     # for each individual edge
-            try:    # if the item is actually a float 
-                listOweights.append(float(x))
+def convertabp(matrix): ## Convert to a list of src, dest, path for easier MST calculation
+    newmat = []
+    for x in matrix:
+        if x[0] == "------": continue ## Ignore invalid matricies
+        for i in range(len(x)):
+            if i == 0: continue
+            if x[i] == "------": continue
+            try:
+                newmat.append([x[0],matrix[0][i],x[i]])
             except:
                 continue
-    listOweights = sorted(listOweights, key=float) # sort the list from smallest to largest
-    
-    ## Start making a MST Matrix
-    i = 0; x = 0 # Reset VARs
-    for weight in listOweights:
-        for i in range(len(TMatric)):    # for each list of edges
-            for x in range(len(TMatric[i])):     # for each individual edge
-                try:    # if the item is actually a float 
-                    float(TMatric[i][x])
-                    if float(TMatric[i][x]) == float(weight): ## if this is one of the weights we need to add
-                        if TMatric[0][x] in visitedNodes: continue
-                        mstMATRIX[i][x] = TMatric[i][x]
-                        visitedNodes.append(TMatric[0][x]) # add src to visited nodes
-                        visitedNodes.append(TMatric[i][0]) # add dst to visited nodes
-                        TMatric[i][x] = "------" # delete from the temp matrix as to not repeat ||| THIS IS DELETING THINGS IN THE MAIN MATRIX?????
-                except: continue
-    
-    print(TMatric)
-    return 
+    return newmat
+
+def NodeVisited(mst, point):
+    for x in range(len(mst)):
+        if mst[x][1] == point or mst[x][0] == point: # if the src or destination is in the graph
+            return True
+        
+    return False
+
+def returngroupafill(lettergroups, node): # Return the gang affiliation of a letter
+    for x in lettergroups:
+        if x[0] == node:
+            return x[1]
+    return False
+
+def gangtakeover(letterG, win, lose): ## When 2 forests need to be combined rename all of forest 2
+    for x in range(len(letterG)):
+        if letterG[x][1] == lose: # if it is in losing forest
+            letterG[x][1] = win # set to new forest id 
+    return letterG
+
+def minimumspanningTree(mat):
+    ## Set up some temporary matricies to work with in this algorithim
+    listOweights = convertabp(mat);    # Create a list for the order of weights 
+    listOweights = sorted(listOweights, key=lambda x: x[2])
+    MST = []
+    lettergroups = [] # ["A", 1]
+
+    ## Lets get adding
+    affiliation = 1
+    for x in listOweights: # ALGO FOR MST
+        # if NodeVisited(MST, x[1]): 
+        src = returngroupafill(lettergroups, x[0])
+        dest = returngroupafill(lettergroups, x[1])
+        if src == False and dest == False: # If neither have an affiliation | ie. new forest
+            MST.append([x[0],x[1],x[2]]) 
+            # Append new affiliations for src and dest
+            lettergroups.append([x[0], affiliation])
+            lettergroups.append([x[1], affiliation])
+            affiliation += 1 # We created a new forest
+        elif src == False or dest == False: # if one have an affiliation
+            if src == False:
+                MST.append([x[0],x[1],x[2]])
+                lettergroups.append([x[0], dest])
+                lettergroups.append([x[1], dest])
+            elif dest == False:
+                MST.append([x[0],x[1],x[2]])
+                lettergroups.append([x[0], src])
+                lettergroups.append([x[1], src])
+        elif src == dest: 
+            continue
+        elif src and dest:
+            if src > dest:
+                lettergroups = gangtakeover(lettergroups, dest, src)
+                lettergroups.append([x[0], dest])
+                lettergroups.append([x[1], dest])
+            if dest > src:
+                lettergroups = gangtakeover(lettergroups, src, dest)
+                MST.append([x[0],x[1],x[2]])
+                lettergroups.append([x[0], src])
+                lettergroups.append([x[1], src])
+    print(lettergroups)
+    print(MST)
 
 
 def importdata():
@@ -364,6 +405,9 @@ def init():
             return
         elif int(choice) == 9:
             displaymatrix(matrix)
+        elif int(choice) == 10:
+            print(convertabp(matrix))
+
         else:
             continue
        

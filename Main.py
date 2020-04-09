@@ -156,7 +156,7 @@ def deletenode(nodetodelete): ## Loop through each 'row' in the matrix deleting 
 def bellmanford(startingnode, startingindex): ## Called from shortest path function for simplicity
     global matrix
     pathsfornode = dict(returnpaths(startingnode))    # This is the current direct paths we have
-    pathstocompute = listcities(matrix)         # This is all the destinations we need to get to
+    pathstocompute = listcities(matrix)               # This is all the destinations we need to get to
 
     ## Bring the pathsfornode DICT up to speed on total not just computed paths
     # for x, y in pathsfornode.items: # Change '--
@@ -183,12 +183,12 @@ def bellmanford(startingnode, startingindex): ## Called from shortest path funct
     iterations = len(pathsfornode) - 1 # Max iteration, we will use this later
     while iterations > 0: 
         for dest, weight in pathsfornode.items(): # {'Ottawa': '------', 'Montreal': '199', 'Kingston': '196', 'Oshawa': '------', 'Whitby': '------', 'Toronto': '------'}
+            
             ## GET SOME TEMP INFO FOR THIS HOP
             if dest == startingnode: continue ## if nexthop is current node ignore
             if weight == '------': continue # no route to host, dont compute
-            # input(str(dest) + str(weight))
 
-            ## Setup some vars
+            ## Setup some vars before the nexthop comparisons
             tempdistance = weight # set the current hop distance
             temppathweights = dict(returnpaths(dest)) # get the list of destinations from this node 
 
@@ -196,9 +196,12 @@ def bellmanford(startingnode, startingindex): ## Called from shortest path funct
             counter = 0 # init counter
             for nexthop, nextweight in temppathweights.items(): # pull nexthop and the cost from current node
                 tempdistance = float(weight) # set the current hop distance
-                if nexthop == startingnode: continue # ignore node if its the source of the hop
-                if nextweight == '------': continue  # ignore if no hop available
-                if pathsfornode[nexthop] == '------': pathsfornode[nexthop] = float(nextweight) + float(tempdistance); nexthoplist[nexthop] = dest; continue
+                if nexthop == startingnode: continue ## ignore node if its the source of the hop
+                if nextweight == '------': continue  ## ignore if no hop available
+                if pathsfornode[nexthop] == '------':  ## if theere is no nexthop/path for the current path
+                    pathsfornode[nexthop] = float(nextweight) + float(tempdistance) # Set path to our current path + current next hop amount
+                    nexthoplist[nexthop] = dest     # Set the next hop as the hop it 
+                    continue # start loop again
                 if float(pathsfornode[nexthop]) > float(nextweight) + float(tempdistance): pathsfornode[nexthop] = float(nextweight) + float(tempdistance); nexthoplist[nexthop] = dest; continue
         iterations -= 1 # Increment Counter Down
     return nexthoplist, pathsfornode

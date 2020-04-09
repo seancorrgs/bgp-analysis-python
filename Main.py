@@ -30,8 +30,13 @@ def displaymatrix(matrix): ## Print the matrix nicely for the debug screen
         print("\n\n{} Available Paths".format(x[0]))
         for i in range(len(x)):
             if i == 0: continue
-            print("Dest: {}  | Cost: {}".format(matrix[0][i],x[i]))
+            try:
+                print("Dest: {}  | Cost: {}".format(matrix[0][i],x[i]))
+            except:
+                continue
     input("\nPress Return to go back to the main menu")
+
+
 def listcities(matrix): ## Return a list of the cities in the array
     citylist = []
     for i in range(len(matrix[0])):
@@ -221,9 +226,9 @@ def shortestpath(): ## Compute the shortest path from one vertex to the rest of 
         print("{}  | Next Hop -> {} |  Total Cost: {}".format(x,y, pathsfornode[x])) 
     input("\n\nPress Enter to return to main menu")
 
-def deleteallcontent(matrix): ## Delete all the weights to create a blank table
+def deleteallcontent(tmatrix): ## Delete all the weights to create a blank table
     newmatrix = []
-    for i in matrix: # for each list of edges
+    for i in tmatrix: # for each list of edges
         newSubMatrix = [] # create temp matrix 
         for x in i: # for each individual edge
             try:
@@ -234,15 +239,15 @@ def deleteallcontent(matrix): ## Delete all the weights to create a blank table
         newmatrix.append(newSubMatrix)
     return newmatrix
 
-def minimumspanningTree():
-    global matrix
+def minimumspanningTree(mat):
+    matrix = []
     ## Set up some temporary matricies to work with in this algorithim
-    tempmatrix = list(matrix)            # Make a matrix that we can delete from as we use it
-    MSTmatrix = deleteallcontent(matrix) # Create a blank table to contain the new MST
-    listOweights = []; visitedNodes = [] # Create a list for the order of weights and the nodes we have visited
+    TMatric = mat.copy()                        # Make a matrix that we can delete from as we use it
+    mstMATRIX = deleteallcontent(TMatric.copy())       # Create a blank table to contain the new MST
+    listOweights = []; visitedNodes = []       # Create a list for the order of weights and the nodes we have visited
 
     ## make an ordered list of all the edges in the matrix
-    for i in matrix:    # for each list of edges
+    for i in TMatric:    # for each list of edges
         for x in i:     # for each individual edge
             try:    # if the item is actually a float 
                 listOweights.append(float(x))
@@ -251,26 +256,28 @@ def minimumspanningTree():
     listOweights = sorted(listOweights, key=float) # sort the list from smallest to largest
     
     ## Start making a MST Matrix
+    i = 0; x = 0 # Reset VARs
     for weight in listOweights:
-        for i in range(len(tempmatrix)):    # for each list of edges
-            for x in range(len(tempmatrix[i])):     # for each individual edge
+        for i in range(len(TMatric)):    # for each list of edges
+            for x in range(len(TMatric[i])):     # for each individual edge
                 try:    # if the item is actually a float 
-                    float(tempmatrix[i][x])
-                    if float(tempmatrix[i][x]) == float(weight): ## if this is one of the weights we need to add
-                        if tempmatrix[0][x] in visitedNodes: continue
-                        MSTmatrix[i][x] = tempmatrix[i][x]
-                        visitedNodes.append(tempmatrix[0][x])
-                        visitedNodes.append(tempmatrix[i][0])
-                        tempmatrix[i][x] = "------" # delete from the temp matrix as to not repeat
+                    float(TMatric[i][x])
+                    if float(TMatric[i][x]) == float(weight): ## if this is one of the weights we need to add
+                        if TMatric[0][x] in visitedNodes: continue
+                        mstMATRIX[i][x] = TMatric[i][x]
+                        visitedNodes.append(TMatric[0][x]) # add src to visited nodes
+                        visitedNodes.append(TMatric[i][0]) # add dst to visited nodes
+                        TMatric[i][x] = "------" # delete from the temp matrix as to not repeat ||| THIS IS DELETING THINGS IN THE MAIN MATRIX?????
                 except: continue
-        
-    print(MSTmatrix)
+    
+    print(TMatric)
+    return 
 
 
 def importdata():
     global matrix
     matrix = [["------"]]
-    with open("network.txt","r") as file:
+    with open("network_sp.txt","r") as file:
         while True:
             line = file.readline()
             if line == "": break 
@@ -298,7 +305,7 @@ def importdata():
                     # If the Index doesn't exist add spacers to get it to right size
                     matrix[city2].append("------")
                     matrix[city1].append("------")
-    return matrix
+    return
 
 def saveall(matrix): # Save the updated matrix
     # Need a save function to overwrite network.txt if it has been modified
@@ -320,6 +327,8 @@ def debug(matrix):
 
 
 def init():
+    global matrix
+    matrix = []
     while True:
         choice = 0
         print("\n" * 50)
@@ -328,7 +337,7 @@ def init():
             2. Change an Edge weight\n\
             3. Remove Edge\n\
             4. Delete Entire Node\n\
-            5. Find and Display all shortest paths\n\
+            5. Find and Display all shortest paths from node __\n\
             6. Minimum Spanning Tree\n\
             7. Save-all\n\
             8. Quit\n\
@@ -337,7 +346,7 @@ def init():
             choice = int(input("choice:   "))
         except ValueError: print("You must enter a int value")
         if int(choice) == 1:
-            matrix = importdata()
+            importdata()
         elif int(choice) == 2:
             changeedge()
         elif int(choice) == 3:
@@ -347,14 +356,16 @@ def init():
         elif int(choice) == 5:
             shortestpath()
         elif int(choice) == 6:
-            minimumspanningTree()
+            minimumspanningTree(matrix)
+            importdata()
         elif int(choice) == 7:
             saveall()
         elif int(choice) == 8:
             return
         elif int(choice) == 9:
             displaymatrix(matrix)
-        else: continue
+        else:
+            continue
        
        
 

@@ -125,13 +125,13 @@ The code will then delete that node by looping through the entire matrix for any
 
 The **code responsable** for doing this is the deletenode() function.
 
-        matrix[0][nodetodelete+1] = "------" # Delete node reference in the main table
-        matrix[nodetodelete + 1] = ["------"] # Delete any reference to the user 
-        for x in matrix: # for each node pathway list | Delete the nodes path to the node we are deleting
-            try:
-                x[nodetodelete + 1] = "------" # Replace all occasions of that node in other paths.
-            except IndexError: # if there was never a reference to a node path at that list
-                pass # move on to next item in list
+    matrix[0][nodetodelete+1] = "------" # Delete node reference in the main table
+    matrix[nodetodelete + 1] = ["------"] # Delete any reference to the user 
+    for x in matrix: # for each node pathway list | Delete the nodes path to the node we are deleting
+        try:
+            x[nodetodelete + 1] = "------" # Replace all occasions of that node in other paths.
+        except IndexError: # if there was never a reference to a node path at that list
+            pass # move on to next item in list
 
 
 

@@ -106,9 +106,24 @@ Choosing 0 then 1 in this example, removes the edge from Ottawa to Montreal; ins
 #### Removing a Node 
 ###### Menu Option -
 
-    Documentation will be added once the function is added
-    
-#### Display shortest path from a node
+If the user would like to remove a node the matrix then they can do so.
+The program will then provide the user with a list of all the nodes loaded
+
+    -- List of Nodes --
+    0. Ottawa
+    1. Montreal
+    2. Kingston
+    3. Oshawa
+    4. Whitby
+    5. Toronto
+
+    Enter to Return
+    Choose a node to delete..
+    #   3  
+
+The code will then delete that node by looping through the entire matrix for any referance to that node, for example if the node has multiple paths to other nodes the program will 'zero-out' that path list so that all values equal '------' which is the programs way to signify a null value.
+
+#### Display shortest path from a single root node
 ###### Menu Option -
 
     Documentation will be added shortly

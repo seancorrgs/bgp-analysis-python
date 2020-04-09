@@ -146,18 +146,15 @@ def deletenodeselect(): # Delete entire node function including asking for what 
     if choicecity1 == "": return
     deletenode(choicecity1)
 
-def deletenode(nodetodelete): ## Delete an entire node callable as API
+def deletenode(nodetodelete): ## Loop through each 'row' in the matrix deleting a certain matrix index IF IT IS AVAILABLE
     global matrix
-    matrix[0][nodetodelete+1] = "------"
-    matrix[nodetodelete + 1] = ["------"]
-    for x in matrix:
+    matrix[0][nodetodelete+1] = "------" # Delete node reference in the main table
+    matrix[nodetodelete + 1] = ["------"] # Delete any reference to the user 
+    for x in matrix: # for each node pathway list | Delete the nodes path to the node we are deleting
         try:
             x[nodetodelete + 1] = "------" # Replace all occasions of that node in other paths.
-        except IndexError:
-            pass
-    ## Loop through each 'row' in the matrix deleting a certain matrix index IF IT IS AVAILABLE
-
-
+        except IndexError: # if there was never a reference to a node path at that list
+            pass # move on to next item in list
 
 def bellmanford(startingnode, startingindex): ## Called from shortest path function for simplicity
     global matrix

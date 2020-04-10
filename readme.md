@@ -31,11 +31,11 @@ The code will provide options to the user in line with each requirement of the a
 6. [Minimum Spanning Tree](#6-display-minimum-spanning-tree-based-on-kruskals-algorithim)
 7. [Save-all](#7-save-all)
 8. [Quit](#8-quit)
-9. Debug #Menu for testing of features etc
+9. Display Entire graph
  
 
 #### 1. Build initial graph from "network.txt"
-###### Menu Option - 
+
 
 To build an initial graph from a text file you must have a text file in the directory you are running the code from named "network.txt"
 
@@ -46,10 +46,10 @@ To build an initial graph from a text file you must have a text file in the dire
     Whitby Oshawa 1
     Oshawa Toronto 9
 
-The code will then import the file line by line into its internal matricies ignoring any lines that are blank or include a # in that line (useful for commenting out a line for testing)
+The code will then import the file line by line into its internal matricies ignoring any lines that are blank or include a # or : in that line (useful for commenting out a line for testing)
 
 #### 2. Change an edge weight 
-###### Menu Option - 
+
 
 To change an edge weight the user must provide a src and destination the program will provide an input for both
 
@@ -79,7 +79,7 @@ You may then choose an edge to edit and put in a new value
     New weight (hit enter to cancel modification):   32
 
 #### 3. Remove an Edge
-###### Menu Option -
+
 
 When choosing 3 on the main menu the user will be presented with the option to present an edge weight via a choice of a src and destination to locate the edge to be deleted
     
@@ -104,7 +104,7 @@ When choosing 3 on the main menu the user will be presented with the option to p
 Choosing 0 then 1 in this example, removes the edge from Ottawa to Montreal; instead replacing it with the weight of '------' in the Matrix
 
 #### 4. Removing a Node 
-###### Menu Option -
+
 
 If the user would like to remove a node the matrix then they can do so.
 The program will then provide the user with a list of all the nodes loaded
@@ -137,7 +137,7 @@ The **code responsable** for doing this is the deletenode() function.
 
 
 #### 5. Display shortest path from a single root node
-###### Menu Option - #5
+
 
 To display a shortest path calculation from a specific node the program will ask the user which node to run from:
 
@@ -209,15 +209,24 @@ The function does a few things to implement the Bellman-Ford algorithim algorith
 
 
 #### 6. Display Minimum Spanning Tree Based on Kruskals Algorithim
-###### Menu Option -
 
-pass
+
+The minimum spanning tree function must follow some simple rules
+
+Rules of Kruskal:
+
+1. No Loops
+2. Add paths in order of smallest to largest 
+
+##### Code implementation
+
+To implement this into my code I decided to use an "affiliation" of each and every 
 
 #### 7. Save All
-###### Menu Option -
+
 
 #### 8. Quit
-###### Menu Option -
+
 
 
 ### License

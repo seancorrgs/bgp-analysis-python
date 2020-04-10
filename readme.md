@@ -259,7 +259,7 @@ Saves the current working Matrix and Graph back to the file network.txt
 
     Exits the program
 
-#### 9. Display current working graph
+#### 9. Display current Graph
 
 Displays the current graph with any changes made with options 2-4
 

@@ -1,7 +1,7 @@
 ##########################
 # Sean Corrigan 2020
 # 100693058
-# 
+# sean.corrigan1@ontariotechu.net
 # https://gitlab.platinumnetworks.ca/imp4ct/infr2820-final/ < GIT History | private until day after assignment is submitted 
 ##########################
 

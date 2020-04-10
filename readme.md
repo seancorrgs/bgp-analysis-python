@@ -218,16 +218,50 @@ Rules of Kruskal:
 1. No Loops
 2. Add paths in order of smallest to largest 
 
-##### Code implementation
+###### Code implementation
 
-To implement this into my code I decided to use an "affiliation" of each and every 
+To implement this into my code I decided to use an "affiliation" of each and every Node. Once a node is added to a forest in the graph it is given an affiliation. If it is not connected to any node with a previous affiliation then the program will increment the affiliation number by one and assign that forest a new affiliation ID. example below:
+
+     if src == False and dest == False: # If neither have an affiliation | ie. new forest
+            MST.append([x[0],x[1],x[2]]) 
+            # Append new affiliations for src and dest
+            lettergroups.append([x[0], affiliation])
+            lettergroups.append([x[1], affiliation])
+            affiliation += 1 # We created a new forest
+
+If a route between two nodes with the same affiliation is found then the program will count that as a loop in a forest and discard that route. 
+
+Loop catch statement:
+
+    elif src == dest: 
+            continue
+
+
+If 2 different forests (affiliations) have a route between them then the program will change the affiliation of all of the highernumbered routes to match the lower numbered forest then complete the route into the MST list. snippet below:
+   
+    # src = the source node affiliation | dest = the destination node affiliation
+    elif src and dest:
+                if src > dest:
+                    lettergroups = gangtakeover(lettergroups, dest, src)
+                    lettergroups.append([x[0], dest])
+                    lettergroups.append([x[1], dest])
+                if dest > src:
+                    lettergroups = gangtakeover(lettergroups, src, dest)
+                    MST.append([x[0],x[1],x[2]])
+                    lettergroups.append([x[0], src])
+                    lettergroups.append([x[1], src])
 
 #### 7. Save All
 
+Saves the current working Matrix and Graph back to the file network.txt
 
 #### 8. Quit
 
+    Exits the program
 
+#### 9. Display current working graph
+
+Displays the current graph with any changes made with options 2-4
 
 ### License
 ##### BSD-0 

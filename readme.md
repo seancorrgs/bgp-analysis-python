@@ -31,7 +31,7 @@ The code will provide options to the user in line with each requirement of the a
 6. [Minimum Spanning Tree](#6-display-minimum-spanning-tree-based-on-kruskals-algorithim)
 7. [Save-all](#7-save-all)
 8. [Quit](#8-quit)
-9. Display Entire graph
+9. [Display Entire graph](#9-display-current-graph)
  
 
 #### 1. Build initial graph from "network.txt"

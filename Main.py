@@ -139,7 +139,6 @@ def deletenodeselect(): # Delete entire node function including asking for what 
     try:
         choicecity1 = int(input("\nEnter to Return\nChoose a node to delete..\n#   "))
     except ValueError: print("You must enter a int value"); return
-    input(choicecity1)
     if choicecity1 == "": return
     deletenode(choicecity1)
 
@@ -315,7 +314,7 @@ def minimumspanningTree(mat):
 def importdata():
     global matrix
     matrix = [["------"]]
-    with open("network_sp.txt","r") as file:
+    with open("network.txt","r") as file:
         while True:
             line = file.readline()
             if line == "": break 
@@ -346,8 +345,11 @@ def importdata():
     return
 
 def saveall(matrix): # Save the updated matrix
-    # Need a save function to overwrite network.txt if it has been modified
-    pass
+    print("Forcing save...")
+    abp = convertabp(matrix)
+    with open("network.txt","w") as file:
+        for x in abp:
+            file.write("{} {} {}\n".format(x[0], x[1], x[2]))
 
 def debug(matrix):
      # Testing Area
@@ -389,7 +391,8 @@ def init():
             minimumspanningTree(matrix)
             importdata()
         elif int(choice) == 7:
-            saveall()
+            saveall(matrix)
+            # importdata()
         elif int(choice) == 8:
             return
         elif int(choice) == 9:

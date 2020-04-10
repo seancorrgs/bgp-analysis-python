@@ -379,6 +379,9 @@ def init():
         except ValueError: print("You must enter a int value")
         if int(choice) == 1:
             importdata()
+        elif matrix == []:
+            input("No network.txt has been imported \npress return to load one from current directoy")
+            importdata()
         elif int(choice) == 2:
             changeedge()
         elif int(choice) == 3:
@@ -388,6 +391,7 @@ def init():
         elif int(choice) == 5:
             shortestpath()
         elif int(choice) == 6:
+            saveall(matrix)
             minimumspanningTree(matrix)
             importdata()
         elif int(choice) == 7:

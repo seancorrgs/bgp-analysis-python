@@ -1,7 +1,7 @@
 # Sean Corrigan - 100693058 
 #### INFR2020 Final Project
 
-[GITLAB REPO](https://gitlab.platinumnetworks.ca/imp4ct/infr2820-final/)
+[GITLAB REPO](https://gitlab.platinumnetworks.ca/imp4ct/bgp-analysis-python)
 ##### Dependancies 
     There are no dependencies other than stock python 3.7
          
